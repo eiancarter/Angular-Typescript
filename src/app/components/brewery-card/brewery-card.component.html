@@ -6,6 +6,19 @@
             Error getting breweries.
         </div>
     </div>
+    <div class="search-container">
+        <div class="form-group">
+            <label for="search-text">Search Text</label>
+            <input type="email" class="form-control" id="search-text" aria-describedby="search-text" 
+                [(ngModel)]="inputText" placeholder="Enter text to search" 
+                autofocus>
+        </div>
+        <!-- <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let char of mapNames | appFilter: inputText">
+                {{char}}
+            </li>
+        </ul> -->
+    </div>
     <div class="Brewery-List">
         <!-- <table sortable-table (sorted)="onSorted($event)" cdkDropList (cdkDropListDropped)="drop($event)"> -->
         <table cdkDropList (cdkDropListDropped)="drop($event)">
@@ -15,7 +28,7 @@
                 <th sortable-brews="website_url" class="col-md-2 breweryData">Brewery Website</th>
                 <th sortable-brews="updated_at" class="col-md-2 breweryData">Brewery Updated</th>
             </tr>
-            <tr class="row" *ngFor="let brewery of BreweryList" cdkDrag>
+            <tr class="row" *ngFor="let brewery of BreweryList | searchFilter:inputText; index as i; trackBy: trackByFn;" cdkDrag>
                 <td class="col-md-2 breweryData">{{ brewery.name }}</td>
                 <td class="col-md-2 breweryData">{{ brewery.brewery_type }}</td>
                 <td class="col-md-2 breweryData">{{ brewery.website_url }}</td>

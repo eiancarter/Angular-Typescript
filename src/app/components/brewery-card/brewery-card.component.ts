@@ -40,11 +40,21 @@ export class BreweryCardComponent implements OnInit {
   website_url: string = '';
   updated_at: string = '';
 
+  title = 'angular-text-search-highlight';
+  inputText = '';
+
   breweryError: Error = null;
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.BreweryList, event.previousIndex, event.currentIndex);
+    alert(`breweries update: ${this.BreweryList}`);
   }
+
+  trackByFn(index: number, item: String) {
+    return index;
+  }
+
+  // onSorted(event: sorted)
 
   // getBreweries(breweries: SortableTableDir): BreweryCard[] {
   //   return this.BreweryList.sort((a,b) => {

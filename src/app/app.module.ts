@@ -15,17 +15,21 @@ import { SortService } from './services/sorting-service';
 import { SortableTableDir } from './directives/sortable-table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SearchFilterPipe } from './pipes/searchfilter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     BreweryCardComponent,
     SortableBrewsComponent,
-    SortableTableDir
+    SortableTableDir,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    FormsModule,
     DragDropModule,
     AppRoutingModule,
     HttpClientModule,

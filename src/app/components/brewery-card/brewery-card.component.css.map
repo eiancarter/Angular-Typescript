@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "brewery-card.component.scss"
+    ],
+    "names": [],
+    "file": "brewery-card.component.css"
+}

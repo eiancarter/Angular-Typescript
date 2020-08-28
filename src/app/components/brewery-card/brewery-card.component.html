@@ -1,0 +1,26 @@
+<div class="Container">
+    <h3>Local Breweries</h3>
+    
+    <div *ngIf="breweryError?.message">
+        <div class="alert alert-danger" role="alert" id="BreweryError">
+            Error getting breweries.
+        </div>
+    </div>
+    <div class="Brewery-List">
+        <!-- <table sortable-table (sorted)="onSorted($event)" cdkDropList (cdkDropListDropped)="drop($event)"> -->
+        <table cdkDropList (cdkDropListDropped)="drop($event)">
+            <tr class="row">
+                <th sortable-brews="name" sort-direction="asc" class="col-md-2 breweryData">Brewery Name</th>
+                <th sortable-brews="brewery_type" class="col-md-2 breweryData">Brewery Type</th>
+                <th sortable-brews="website_url" class="col-md-2 breweryData">Brewery Website</th>
+                <th sortable-brews="updated_at" class="col-md-2 breweryData">Brewery Updated</th>
+            </tr>
+            <tr class="row" *ngFor="let brewery of BreweryList" cdkDrag>
+                <td class="col-md-2 breweryData">{{ brewery.name }}</td>
+                <td class="col-md-2 breweryData">{{ brewery.brewery_type }}</td>
+                <td class="col-md-2 breweryData">{{ brewery.website_url }}</td>
+                <td class="col-md-2 breweryData">{{ brewery.updated_at }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

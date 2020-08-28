@@ -53,4 +53,31 @@
       -ms-flex-align: center;
           align-items: center;
 }
+
+.Container .Brewery-List .row .breweryData span {
+  width: 100%;
+}
+
+.Container .Brewery-List .row .breweryData .column-resize {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 1px;
+  height: 100%;
+  padding: 0;
+  cursor: col-resize;
+  border: 1px solid blue;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 /*# sourceMappingURL=styles.css.map */

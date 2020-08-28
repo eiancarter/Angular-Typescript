@@ -23,6 +23,18 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                span {
+                    width: 100%;
+                }
+                .column-resize {
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 1px;
+                    height: 100%;
+                    padding: 0;
+                    cursor: col-resize;
+                    border: 1px solid blue;
+                }
             }
         }
     }

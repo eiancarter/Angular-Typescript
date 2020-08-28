@@ -40,7 +40,6 @@ import { FormsModule } from '@angular/forms';
   providers: [
     BreweryCardApi,
     SortService,
-    SortableTableDir
   ],
   bootstrap: [AppComponent]
 })

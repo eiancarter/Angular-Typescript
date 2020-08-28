@@ -8,7 +8,6 @@ import { SortService } from '../services/sorting-service';
 
 export class SortableTableDir implements OnInit, OnDestroy {
     constructor(private sortService: SortService) { }
-
         @Output()
         sorted = new EventEmitter();
 

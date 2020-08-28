@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,8 +6,9 @@ import * as BreweryCardActions from '../../actions/brewery-card.action';
 import BreweryCard from '../../models/brewery-card-model';
 import BreweryCardState from '../../state/brewery-card.state';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-// import { SortableTableDir } from '../../directives/sortable-table';
- 
+import * as $ from 'jquery';
+
+  
 @Component({
   selector: 'app-brewery-card',
   templateUrl: './brewery-card.component.html',
@@ -16,7 +17,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export class BreweryCardComponent implements OnInit {
 
-  constructor(private store: Store<{ breweries: BreweryCardState }>) { 
+  constructor(public renderer: Renderer2, private store: Store<{ breweries: BreweryCardState }>) { 
     this.brewery$ = store.pipe(select('breweries'));
   }
 
@@ -54,7 +55,34 @@ export class BreweryCardComponent implements OnInit {
     return index;
   }
 
-  // onSorted(event: sorted)
+  start: string = '';
+  pressed: boolean = false;
+  startX: number = 20;
+  startWidth: number = 20;
+
+  public onMouseDown(event) {
+    this.start = event.target;
+    this.pressed = true;
+    this.startX = event.x;
+    this.startWidth = $(this.start).parent().width();
+    this.initResizableColumns();
+  }
+
+  private initResizableColumns() {
+    this.renderer.listen('body', 'mousemove', (event) => {
+      if(this.pressed) {
+        let width = this.startWidth + (event.x - this.startX);
+        $(this.start).parent().css({'min-width': width, 'max-width': width});
+        let index = $(this.start).parent().index() + 1;
+        $('.glowTableBody tr td:nth-child(' + index + ')').css({'min-width': width, 'max-width': width});
+      }
+    });
+    this.renderer.listen('body', 'mouseup', (event) => {
+      if(this.pressed) {
+        this.pressed = false;
+      }
+    });
+  }
 
   // getBreweries(breweries: SortableTableDir): BreweryCard[] {
   //   return this.BreweryList.sort((a,b) => {

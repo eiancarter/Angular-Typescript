@@ -57,55 +57,34 @@ export class BreweryCardComponent implements OnInit {
 
   start: string = '';
   pressed: boolean = false;
-  startX: number = 20;
-  startWidth: number = 20;
+  initialX: number = 1;
+  initialWidth: number = 1;
 
   public onMouseDown(event) {
     this.start = event.target;
     this.pressed = true;
-    this.startX = event.x;
-    this.startWidth = $(this.start).parent().width();
+    this.initialX = event.clientX;
+    this.initialWidth = $(this.start).parent().width();
     this.initResizableColumns();
   }
 
+  // JQuery and CSS to listen for mouse event that, when pressed, allows
+  // the user to grab span in header cell and dynamically resize column.
   private initResizableColumns() {
-    this.renderer.listen('body', 'mousemove', (event) => {
+    this.renderer.listen('window', 'mousemove', (event) => {
       if(this.pressed) {
-        let width = this.startWidth + (event.x - this.startX);
+        let width = this.initialWidth + (event.clientX - this.initialX);
         $(this.start).parent().css({'min-width': width, 'max-width': width});
         let index = $(this.start).parent().index() + 1;
-        $('.glowTableBody tr td:nth-child(' + index + ')').css({'min-width': width, 'max-width': width});
+        $('tr td:nth-child(' + index + ')').css({'min-width': width, 'max-width': width});
       }
     });
-    this.renderer.listen('body', 'mouseup', (event) => {
+    this.renderer.listen('window', 'mouseup', (event) => {
       if(this.pressed) {
         this.pressed = false;
       }
     });
   }
-
-  // getBreweries(breweries: SortableTableDir): BreweryCard[] {
-  //   return this.BreweryList.sort((a,b) => {
-  //     if(breweries.sortDirection === 'desc'){
-  //       if(a[breweries.sortColumn] < b[breweries.sortColumn]) {
-  //         return -1;
-  //       };
-  //       if(a[breweries.sortColumn] > b[breweries.sortColumn]) {
-  //         return 1;
-  //       };
-  //         return 0;
-  //       }
-  //     else {
-  //       if(a[breweries.sortColumn] > b[breweries.sortColumn]) {
-  //         return -1;
-  //       };
-  //       if(a[breweries.sortColumn] < b[breweries.sortColumn]) {
-  //         return 1;
-  //       };
-  //       return 0;
-  //     }
-  //   });
-  // }
 
   ngOnDestroy() {
     if (this.BreweryCardSubscription) {

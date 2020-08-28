@@ -15,24 +15,23 @@
         </div>
     </div>
     <div class="Brewery-List">
-        <!-- <table sortable-table (sorted)="onSorted($event)" cdkDropList (cdkDropListDropped)="drop($event)"> -->
-        <table cdkDropList (cdkDropListDropped)="drop($event)">
+        <table sortable-table (sorted)="onSorted($event)" cdkDropList (cdkDropListDropped)="drop($event)">
             <tr class="row">
                 <th sortable-brews="name" sort-direction="asc" class="col-md-2 breweryData">
                     <span class="header">Brewery Name</span>
-                    <span class='column-resize' (mousedown) = "onMouseDown($event)"></span>
+                    <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
                 <th sortable-brews="brewery_type" class="col-md-2 breweryData">
                     <span class="header">Brewery Type</span>
-                    <span class='column-resize' (mousedown) = "onMouseDown($event)"></span>
+                    <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
                 <th sortable-brews="website_url" class="col-md-2 breweryData">
                     <span class="header">Brewery Website</span>
-                    <span class='column-resize' (mousedown) = "onMouseDown($event)"></span>
+                    <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
                 <th sortable-brews="updated_at" class="col-md-2 breweryData">
                     <span class="header">Brewery Updated</span>
-                    <span class='column-resize' (mousedown) = "onMouseDown($event)"></span>
+                    <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
             </tr>
             <tr class="row" *ngFor="let brewery of BreweryList | searchFilter:inputText; index as i; trackBy: trackByFn;" cdkDrag>

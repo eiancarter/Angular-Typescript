@@ -2,8 +2,9 @@
 .Container {
     display: flex;
     justify-content: center;
+    background: rgb(220, 223, 224);
     align-items: center;
-    margin-top: 10%;
+    margin-top: 4%;
     flex-direction: column;
     .Brewery-List {
         display: flex;
@@ -13,27 +14,29 @@
         .row {
             display: flex;
             justify-content: center;
-            background: lightgray;
-            margin: 5px 0 5px 0;
+            background: #fff;
+            margin: 2px 0 2px 0;
             width: 100%;
             min-height: 2rem;
+            border-radius: 4px;
             .breweryData {
                 width: 100%;
                 min-width: 20rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                border-right: 1px solid rgb(86, 141, 241);
+                overflow-x: hidden;
                 span {
                     width: 100%;
                 }
                 .column-resize {
                     display: flex;
                     justify-content: flex-end;
-                    width: 1px;
+                    width: 3px;
                     height: 100%;
                     padding: 0;
                     cursor: col-resize;
-                    border: 1px solid blue;
                 }
             }
         }

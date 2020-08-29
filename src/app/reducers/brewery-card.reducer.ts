@@ -18,7 +18,7 @@ const reducer = createReducer(
     on(BreweryCardActions.BreweryActionFailure, ( state: BreweryCardState, error: Error) => {
         console.log(error);
         return { ...state, BreweryError: error};
-    })
+    }),
 );
 
 export function BreweryCardReducer( 

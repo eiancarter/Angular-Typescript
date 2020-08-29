@@ -33,29 +33,6 @@ export class SortableBrewsComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSorted(criteria: SortService): BreweryCard[] {
-    return this.BreweryList.sort((a,b) => {
-      if(criteria.sortDirection === 'desc'){
-        if(a[criteria.sortColumn] < b[criteria.sortColumn]) {
-          return -1;
-        };
-        if(a[criteria.sortColumn] > b[criteria.sortColumn]) {
-          return 1;
-        };
-          return 0;
-        }
-      else {
-        if(a[criteria.sortColumn] > b[criteria.sortColumn]) {
-          return -1;
-        };
-        if(a[criteria.sortColumn] < b[criteria.sortColumn]) {
-          return 1;
-        };
-        return 0;
-      }
-    });
-  }
-
   ngOnDestroy() {
     this.columnSortedSubscription.unsubscribe();
   }

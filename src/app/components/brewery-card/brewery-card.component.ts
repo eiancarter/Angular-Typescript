@@ -7,6 +7,7 @@ import BreweryCard from '../../models/brewery-card-model';
 import BreweryCardState from '../../state/brewery-card.state';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import * as $ from 'jquery';
+import { LocalStorageService } from 'src/app/services/storage-service';
 
   
 @Component({
@@ -17,8 +18,11 @@ import * as $ from 'jquery';
 
 export class BreweryCardComponent implements OnInit {
 
-  constructor(public renderer: Renderer2, private store: Store<{ breweries: BreweryCardState }>) { 
-    this.brewery$ = store.pipe(select('breweries'));
+  constructor(
+    public renderer: Renderer2, 
+    private store: Store<{ breweries: BreweryCardState }>, 
+    ) { 
+    this.brewery$ = store.pipe(select('breweries'))
   }
 
   ngOnInit() {
@@ -29,8 +33,12 @@ export class BreweryCardComponent implements OnInit {
           this.breweryError = x.BreweryError;
         })
       )
-      .subscribe();
-    this.store.dispatch(BreweryCardActions.GetBreweryActionStart());
+    .subscribe();
+    if (!localStorage.getItem('__storage__')) {
+      this.store.dispatch(BreweryCardActions.GetBreweryActionStart());
+    } else {
+      null
+    }
   }
   brewery$: Observable<BreweryCardState>;
   BreweryCardSubscription: Subscription;
@@ -41,18 +49,18 @@ export class BreweryCardComponent implements OnInit {
   website_url: string = '';
   updated_at: string = '';
 
+  BrewSortCriteria: any[] = [this.name, this.brewery_type, this.website_url, this.updated_at]
+
   title = 'angular-text-search-highlight';
   inputText = '';
 
   breweryError: Error = null;
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.BreweryList, event.previousIndex, event.currentIndex);
-    alert(`breweries update: ${this.BreweryList}`);
-  }
+  brewList = JSON.parse(localStorage.getItem('__storage__'));
 
-  trackByFn(index: number, item: String) {
-    return index;
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.brewList.breweries.Breweries, event.previousIndex, event.currentIndex)
+    localStorage.setItem('__storage__', JSON.stringify(this.brewList))
   }
 
   start: string = '';
@@ -84,6 +92,31 @@ export class BreweryCardComponent implements OnInit {
         this.pressed = false;
       }
     });
+  }
+
+  onSorted(sort_criteria: any = this.BrewSortCriteria): BreweryCard[] {
+    this.brewList.breweries.Breweries.sort((a,b) => {
+      if (sort_criteria.sortDirection === 'desc') {
+        if (a[sort_criteria.sortColumn] < b[sort_criteria.sortColumn]) {
+          return -1;
+        };
+        if (a[sort_criteria.sortColumn] > b[sort_criteria.sortColumn]) {
+          return 1;
+        };
+          return 0;
+        }
+      else {
+        if (a[sort_criteria.sortColumn] > b[sort_criteria.sortColumn]) {
+          return -1;
+        };
+        if (a[sort_criteria.sortColumn] < b[sort_criteria.sortColumn]) {
+          return 1;
+        };
+        return 0;
+      }
+    })
+    localStorage.setItem('__storage__', JSON.stringify(this.brewList))
+    return this.brewList.breweries.Breweries
   }
 
   ngOnDestroy() {

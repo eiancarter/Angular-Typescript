@@ -1,11 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+    background: rgb(240, 242, 243);
+}
 .Container {
     display: flex;
     justify-content: center;
-    background: rgb(220, 223, 224);
+    background: rgb(240, 242, 243);
     align-items: center;
-    margin-top: 4%;
+    margin-top: 80px;
     flex-direction: column;
+    h3 {
+        font-size: 1.6rem;
+        font-weight: bold;
+
+    }
+    .header-container {
+        display: flex;
+        width: 90%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .search-container {
+        .form-group {
+            font-weight: bold;
+            input {
+                width: 16rem;
+                border: none;
+                border-radius: 4px;
+                padding: 4px;
+            }
+        }
+    }
     .Brewery-List {
         display: flex;
         justify-content: center;
@@ -19,20 +44,34 @@
             width: 100%;
             min-height: 2rem;
             border-radius: 4px;
+            cursor: pointer;
+            &:hover {
+                background: rgb(107, 201, 80);
+                color: #fff;
+                transform: scale(1.01);
+            }
+            .header {
+                color: rgba(52,52,52,.5);
+                text-transform: capitalize;
+            }
             .breweryData {
                 width: 100%;
                 min-width: 20rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border-right: 1px solid rgb(86, 141, 241);
+                border-right: 1px solid rgb(107, 201, 80);
                 overflow-x: hidden;
+                a {
+                    color: black;
+                }
                 span {
                     width: 100%;
                 }
                 .column-resize {
                     display: flex;
                     justify-content: flex-end;
+                    background: rgb(107, 201, 80);
                     width: 3px;
                     height: 100%;
                     padding: 0;

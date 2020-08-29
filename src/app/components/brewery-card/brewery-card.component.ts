@@ -7,7 +7,6 @@ import BreweryCard from '../../models/brewery-card-model';
 import BreweryCardState from '../../state/brewery-card.state';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import * as $ from 'jquery';
-import { LocalStorageService } from 'src/app/services/storage-service';
 
   
 @Component({
@@ -34,10 +33,9 @@ export class BreweryCardComponent implements OnInit {
         })
       )
     .subscribe();
-    if (!localStorage.getItem('__storage__')) {
+
+    if (!JSON.parse(localStorage.getItem('__storage__')).breweries.Breweries.length) {
       this.store.dispatch(BreweryCardActions.GetBreweryActionStart());
-    } else {
-      null
     }
   }
   brewery$: Observable<BreweryCardState>;

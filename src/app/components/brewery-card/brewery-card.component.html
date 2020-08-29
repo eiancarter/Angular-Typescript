@@ -1,43 +1,44 @@
 <div class="Container">
-    <h3>Find a Local Brewery</h3>
-    
-    <div *ngIf="breweryError?.message">
-        <div class="alert alert-danger" role="alert" id="BreweryError">
-            Error getting breweries.
+    <div class="header-container">
+        <h3>Find a Local Brewery</h3>
+        <div *ngIf="breweryError?.message">
+            <div class="alert alert-danger" role="alert" id="BreweryError">
+                Error getting breweries.
+            </div>
         </div>
-    </div>
-    <div class="search-container">
-        <div class="form-group">
-            <label for="search-text">Find Brewery: </label>
-            <input type="email" class="form-control" id="search-text" aria-describedby="search-text" 
-                [(ngModel)]="inputText" placeholder="name, type, city, state, etc..." 
-                autofocus>
+        <div class="search-container">
+            <div class="form-group">
+                <label for="search-text">Search: </label>
+                <input type="email" class="form-control" id="search-text" aria-describedby="search-text" 
+                    [(ngModel)]="inputText" placeholder="name, type, city, state, etc..." 
+                    autofocus>
+            </div>
         </div>
     </div>
     <div class="Brewery-List">
         <table sortable-table (sorted)="onSorted($event)" cdkDropList (cdkDropListDropped)="drop($event)">
             <tr class="row">
                 <th sortable-brews="name" class="col-md-2 breweryData">
-                    <span class="header">Brewery Name</span>
+                    <span class="header">BREWERY NAME</span>
                     <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
                 <th sortable-brews="brewery_type" class="col-md-2 breweryData">
-                    <span class="header">Brewery Type</span>
+                    <span class="header">BREWERY TYPE</span>
                     <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
                 <th sortable-brews="website_url" class="col-md-2 breweryData">
-                    <span class="header">Brewery Website</span>
+                    <span class="header">BREWERY SITE</span>
                     <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
                 <th sortable-brews="updated_at" class="col-md-2 breweryData">
-                    <span class="header">Brewery Updated</span>
+                    <span class="header">BREWERY UPDATED</span>
                     <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
             </tr>
             <tr class="row" *ngFor="let brewery of brewList.breweries.Breweries | searchFilter:inputText;" cdkDrag>
                 <td class="col-md-2 breweryData">{{ brewery.name }}</td>
                 <td class="col-md-2 breweryData">{{ brewery.brewery_type }}</td>
-                <td class="col-md-2 breweryData">{{ brewery.website_url }}</td>
+                <td class="col-md-2 breweryData"><a href="{{ brewery.website_url }}" target="_blank">{{ brewery.website_url }}</a></td>
                 <td class="col-md-2 breweryData">{{ brewery.updated_at }}</td>
             </tr>
         </table>

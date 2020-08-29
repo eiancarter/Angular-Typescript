@@ -19,18 +19,6 @@ const reducer = createReducer(
         console.log(error);
         return { ...state, BreweryError: error};
     }),
-
-    // on(BreweryCardActions.SortBreweriesAction, state => state),
-
-    // on(BreweryCardActions.SortBreweryActionSuccess, ( state: BreweryCardState, { payload }) => {
-    //     // if 
-    //     return { ...state, Breweries: payload, BreweryError: null };
-    // }),
-
-    // on(BreweryCardActions.BreweryActionFailure, ( state: BreweryCardState, error: Error) => {
-    //     console.log(error);
-    //     return { ...state, BreweryError: error};
-    // })
 );
 
 export function BreweryCardReducer( 

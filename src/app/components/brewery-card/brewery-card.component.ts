@@ -31,11 +31,11 @@ export class BreweryCardComponent implements OnInit {
         })
       )
     .subscribe();
-    // if (!JSON.parse(localStorage.getItem('__storage__'))) {
+    if (!localStorage.getItem('__storage__')) {
       this.store.dispatch(BreweryCardActions.GetBreweryActionStart());
-    // } else {
-    //   null
-    // }
+    } else {
+      null
+    }
   }
   brewery$: Observable<BreweryCardState>;
   BreweryCardSubscription: Subscription;
@@ -57,7 +57,7 @@ export class BreweryCardComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.brewList.breweries.Breweries, event.previousIndex, event.currentIndex)
-    // localStorage.setItem('__storage__', JSON.stringify(this.brewery$))
+    localStorage.setItem('__storage__', JSON.stringify(this.brewList))
   }
 
   trackByFn(index: number, item: String) {

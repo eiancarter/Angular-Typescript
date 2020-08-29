@@ -6,6 +6,7 @@ import * as BreweryCardActions from '../../actions/brewery-card.action';
 import BreweryCard from '../../models/brewery-card-model';
 import BreweryCardState from '../../state/brewery-card.state';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 import * as $ from 'jquery';
 
   
@@ -29,8 +30,12 @@ export class BreweryCardComponent implements OnInit {
           this.breweryError = x.BreweryError;
         })
       )
-      .subscribe();
-    this.store.dispatch(BreweryCardActions.GetBreweryActionStart());
+    .subscribe();
+    // if (!JSON.parse(localStorage.getItem('__storage__'))) {
+      this.store.dispatch(BreweryCardActions.GetBreweryActionStart());
+    // } else {
+    //   null
+    // }
   }
   brewery$: Observable<BreweryCardState>;
   BreweryCardSubscription: Subscription;
@@ -41,14 +46,18 @@ export class BreweryCardComponent implements OnInit {
   website_url: string = '';
   updated_at: string = '';
 
+  BrewSortCriteria: any[] = [this.name, this.brewery_type, this.website_url, this.updated_at]
+
   title = 'angular-text-search-highlight';
   inputText = '';
 
   breweryError: Error = null;
 
+  brewList = JSON.parse(localStorage.getItem('__storage__'));
+
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.BreweryList, event.previousIndex, event.currentIndex);
-    alert(`breweries update: ${this.BreweryList}`);
+    moveItemInArray(this.brewList.breweries.Breweries, event.previousIndex, event.currentIndex)
+    // localStorage.setItem('__storage__', JSON.stringify(this.brewery$))
   }
 
   trackByFn(index: number, item: String) {
@@ -82,6 +91,29 @@ export class BreweryCardComponent implements OnInit {
     this.renderer.listen('window', 'mouseup', (event) => {
       if(this.pressed) {
         this.pressed = false;
+      }
+    });
+  }
+
+  onSorted(criteria: any = this.BrewSortCriteria): BreweryCard[] {
+    return this.brewList.breweries.Breweries.sort((a,b) => {
+      if(criteria.sortDirection === 'desc'){
+        if(a[criteria.sortColumn] < b[criteria.sortColumn]) {
+          return -1;
+        };
+        if(a[criteria.sortColumn] > b[criteria.sortColumn]) {
+          return 1;
+        };
+          return 0;
+        }
+      else {
+        if(a[criteria.sortColumn] > b[criteria.sortColumn]) {
+          return -1;
+        };
+        if(a[criteria.sortColumn] < b[criteria.sortColumn]) {
+          return 1;
+        };
+        return 0;
       }
     });
   }

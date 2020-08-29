@@ -10,6 +10,15 @@ export const GetBreweryActionSuccess = createAction(
     props<{ payload: BreweryCard[] }>()
 );
 
+// export const SortBreweriesAction = createAction('[BreweryCard] - Sort Brewery');
+
+// export const SortBreweryActionStart = createAction('[BreweryCard] - Begin Sort Brewery');
+
+// export const SortBreweryActionSuccess = createAction(
+//     '[BreweryCard] - Success Sort Brewery',
+//     props<{ payload: BreweryCard[] }>()
+// );
+
 export const BreweryActionFailure = createAction(
     '[BreweryCard] - Error',
     props<Error>()

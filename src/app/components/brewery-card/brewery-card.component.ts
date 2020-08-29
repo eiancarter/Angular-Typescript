@@ -6,8 +6,8 @@ import * as BreweryCardActions from '../../actions/brewery-card.action';
 import BreweryCard from '../../models/brewery-card-model';
 import BreweryCardState from '../../state/brewery-card.state';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
 import * as $ from 'jquery';
+import { LocalStorageService } from 'src/app/services/storage-service';
 
   
 @Component({
@@ -18,8 +18,11 @@ import * as $ from 'jquery';
 
 export class BreweryCardComponent implements OnInit {
 
-  constructor(public renderer: Renderer2, private store: Store<{ breweries: BreweryCardState }>) { 
-    this.brewery$ = store.pipe(select('breweries'));
+  constructor(
+    public renderer: Renderer2, 
+    private store: Store<{ breweries: BreweryCardState }>, 
+    ) { 
+    this.brewery$ = store.pipe(select('breweries'))
   }
 
   ngOnInit() {
@@ -60,10 +63,6 @@ export class BreweryCardComponent implements OnInit {
     localStorage.setItem('__storage__', JSON.stringify(this.brewList))
   }
 
-  trackByFn(index: number, item: String) {
-    return index;
-  }
-
   start: string = '';
   pressed: boolean = false;
   initialX: number = 1;
@@ -95,27 +94,29 @@ export class BreweryCardComponent implements OnInit {
     });
   }
 
-  onSorted(criteria: any = this.BrewSortCriteria): BreweryCard[] {
-    return this.brewList.breweries.Breweries.sort((a,b) => {
-      if(criteria.sortDirection === 'desc'){
-        if(a[criteria.sortColumn] < b[criteria.sortColumn]) {
+  onSorted(sort_criteria: any = this.BrewSortCriteria): BreweryCard[] {
+    this.brewList.breweries.Breweries.sort((a,b) => {
+      if (sort_criteria.sortDirection === 'desc') {
+        if (a[sort_criteria.sortColumn] < b[sort_criteria.sortColumn]) {
           return -1;
         };
-        if(a[criteria.sortColumn] > b[criteria.sortColumn]) {
+        if (a[sort_criteria.sortColumn] > b[sort_criteria.sortColumn]) {
           return 1;
         };
           return 0;
         }
       else {
-        if(a[criteria.sortColumn] > b[criteria.sortColumn]) {
+        if (a[sort_criteria.sortColumn] > b[sort_criteria.sortColumn]) {
           return -1;
         };
-        if(a[criteria.sortColumn] < b[criteria.sortColumn]) {
+        if (a[sort_criteria.sortColumn] < b[sort_criteria.sortColumn]) {
           return 1;
         };
         return 0;
       }
-    });
+    })
+    localStorage.setItem('__storage__', JSON.stringify(this.brewList))
+    return this.brewList.breweries.Breweries
   }
 
   ngOnDestroy() {

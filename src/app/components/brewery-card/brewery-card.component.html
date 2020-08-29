@@ -17,7 +17,7 @@
     <div class="Brewery-List">
         <table sortable-table (sorted)="onSorted($event)" cdkDropList (cdkDropListDropped)="drop($event)">
             <tr class="row">
-                <th sortable-brews="name" sort-direction="asc" class="col-md-2 breweryData">
+                <th sortable-brews="name" class="col-md-2 breweryData">
                     <span class="header">Brewery Name</span>
                     <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
@@ -34,7 +34,7 @@
                     <span class='column-resize' (mousedown)="onMouseDown($event)"></span>
                 </th>
             </tr>
-            <tr class="row" *ngFor="let brewery of brewList.breweries.Breweries | searchFilter:inputText; index as i; trackBy: trackByFn;" cdkDrag>
+            <tr class="row" *ngFor="let brewery of brewList.breweries.Breweries | searchFilter:inputText;" cdkDrag>
                 <td class="col-md-2 breweryData">{{ brewery.name }}</td>
                 <td class="col-md-2 breweryData">{{ brewery.brewery_type }}</td>
                 <td class="col-md-2 breweryData">{{ brewery.website_url }}</td>

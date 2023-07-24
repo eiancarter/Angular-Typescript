@@ -1,5 +1,4 @@
 # Brewery Explorer
-## Take Home Project - Eian Carter
 
 ###Deployed Link:
 (https://clickup-eian.netlify.app/)

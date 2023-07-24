@@ -1,4 +1,4 @@
-# Clickup - Brewery Explorer
+# Brewery Explorer
 ## Take Home Project - Eian Carter
 
 ###Deployed Link:
